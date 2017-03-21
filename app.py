@@ -35,14 +35,23 @@ app = Flask(__name__)
     def processRequest(req):
         if req.get("result").get("action") != "scrum_start":
         return {}
-        baseurl = "https://query.yahooapis.com/v1/public/yql?"
-        yql_query = makeYqlQuery(req)
-        if yql_query is None:
-            return {}
-        yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-        result = urlopen(yql_url).read()
-        data = json.loads(result)
-        res = makeWebhookResult(data)
+        speech = "Call to scrum_start"
+        res =  
+        return {
+            "speech": speech,
+            "displayText": speech,
+            # "data": data,
+            # "contextOut": [],
+            "source": "heroku-alfred-webhook-sample"
+        }
+#        baseurl = "https://query.yahooapis.com/v1/public/yql?"
+#        yql_query = makeYqlQuery(req)
+#        if yql_query is None:
+#            return {}
+#        yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+#        result = urlopen(yql_url).read()
+#        data = json.loads(result)
+#        res = makeWebhookResult(data)
         return res
 
 
