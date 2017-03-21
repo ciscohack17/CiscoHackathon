@@ -1,26 +1,26 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-    from future.standard_library import install_aliases
+from future.standard_library import install_aliases
 install_aliases()
 
-    from urllib.parse import urlparse, urlencode
-    from urllib.request import urlopen, Request
-    from urllib.error import HTTPError
+from urllib.parse import urlparse, urlencode
+from urllib.request import urlopen, Request
+from urllib.error import HTTPError
 
-    import json
-    import os
+import json
+import os
 
-    from flask import Flask
-    from flask import request
-    from flask import make_response
+from flask import Flask
+from flask import request
+from flask import make_response
 
 # Flask app should start in global layout
 app = Flask(__name__)
 
 
-    @app.route('/webhook', methods=['POST'])
-    def webhook():
+@app.route('/webhook', methods=['POST'])
+def webhook():
         req = request.get_json(silent=True, force=True)
         print("Request:")
         print(json.dumps(req, indent=4))
@@ -32,18 +32,18 @@ app = Flask(__name__)
         return r
 
 
-    def processRequest(req):
+def processRequest(req):
         if req.get("result").get("action") != "scrum_start":
-        return {}
+            return {}
         speech = "Call to scrum_start"
-        res =  
-        return {
+        res = {
             "speech": speech,
             "displayText": speech,
             # "data": data,
             # "contextOut": [],
             "source": "heroku-alfred-webhook-sample"
         }
+        return res
 #        baseurl = "https://query.yahooapis.com/v1/public/yql?"
 #        yql_query = makeYqlQuery(req)
 #        if yql_query is None:
@@ -52,20 +52,19 @@ app = Flask(__name__)
 #        result = urlopen(yql_url).read()
 #        data = json.loads(result)
 #        res = makeWebhookResult(data)
-        return res
 
 
-    def makeYqlQuery(req):
+def makeYqlQuery(req):
         result = req.get("result")
         parameters = result.get("parameters")
         city = parameters.get("geo-city")
         if city is None:
             return None
 
-         return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+        return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
-   def makeWebhookResult(data):
+def makeWebhookResult(data):
      query = data.get('query')
      if query is None:
          return {}
@@ -74,7 +73,7 @@ app = Flask(__name__)
      if result is None:
          return {}
 
-      channel = result.get('channel')
+     channel = result.get('channel')
      if channel is None:
          return {}
 
@@ -106,8 +105,8 @@ app = Flask(__name__)
 
 
 if __name__ == '__main__':
-port = int(os.getenv('PORT', 5000))
+   port = int(os.getenv('PORT', 5000))
 
-print("Starting app on port %d" % port)
+   print("Starting app on port %d" % port)
 
-app.run(debug=False, port=port, host='0.0.0.0')
+   app.run(debug=False, port=port, host='0.0.0.0')
