@@ -1,0 +1,45 @@
+{
+  "id": "025f9dfa-fd77-4fd6-8771-5cf50687e804",
+  "timestamp": "2017-03-21T03:40:48.325Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "start meeting",
+    "action": "scrum_start",
+    "actionIncomplete": false,
+    "parameters": {
+      "item": "stand up",
+      "perform": "Start"
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "37467741-cc71-4035-a91f-e26adbcaeb00",
+      "webhookUsed": "true",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "standup"
+    },
+    "fulfillment": {
+      "speech": "Okay, Starting Stand up.",
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Okay, Starting Stand up."
+        },
+        {
+          "title": "Caller",
+          "replies": [
+            "Calling team member"
+          ],
+          "type": 2
+        }
+      ]
+    },
+    "score": 1
+  },
+  "status": {
+    "code": 206,
+    "errorType": "partial_content",
+    "errorDetails": "Webhook call failed. Error message: Webhook response was empty. ErrorId: 0689fcab-0270-4495-a0d3-87d2d1ae1d2e"
+  },
+  "sessionId": "9e590137-08c6-4696-8aa2-5f600b2c73c6"
+}
