@@ -11,6 +11,8 @@ from urllib.error import HTTPError
 import json
 import os
 
+
+import trello
 from flask import Flask
 from flask import request
 from flask import make_response
@@ -33,16 +35,29 @@ def webhook():
 
 
 def processRequest(req):
-        if req.get("result").get("action") != "scrum_start":
-            return {}
-        speech = "Call to scrum_start"
+        if req.get("result").get("action") == "scrum_start":
+             d = trello.Lists('742f1a5ab7175bfcb0960448c6e488de')
+             d.get_card('58d0519d70403933e28b6d6e')
+             out_list = d.get_card('58d0519d70403933e28b6d6e',fields='name')
+             print(out_list)
+             speech = "Tasks"
+             for item in out_list:
+                 # print(item.values()[1])
+                 speech = speech + "," + item.values()[1]
+             speech +=".                       Are you blocked on any of your tasks ?"
+           # speech = "Meeting Started.... Team member Aneerudh is missing...calling Aneeroodh"
+        elif req.get("result").get("action") == "get_user_tasks" :
+           speech = "Listing out the tasks for Member Aditya...."
+        else :
+           speech = "hmm...This seems like a new command...I am still learning"
         res = {
-            "speech": speech,
-            "displayText": speech,
-            # "data": data,
-            # "contextOut": [],
-            "source": "heroku-alfred-webhook-sample"
-        }
+              "speech": speech,
+              "displayText": speech,
+              # "data": data,
+              # "contextOut": [],
+              "source": "heroku-alfred-webhook-sample"
+              }
+
         return res
 #        baseurl = "https://query.yahooapis.com/v1/public/yql?"
 #        yql_query = makeYqlQuery(req)
